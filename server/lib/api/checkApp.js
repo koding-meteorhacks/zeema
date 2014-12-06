@@ -1,0 +1,51 @@
+CheckApp = function (){
+  var req = this.request;
+  var res = this.response;
+  res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+  res.setHeader('access-control-allow-origin','*');
+  this.params = this.params || {};
+  this.params.query = this.params.query || {};
+
+  var callback = this.params.query.callback;
+  var email = this.params.query.email;
+  var appId = this.params.query.appId;
+  if(!callback){
+    endResponseWithError(res, 'callback param required')
+  }
+  if(!email){
+    endResponseWithError(res, 'email param required')
+  }
+  if(!appId){
+    endResponseWithError(res, 'appId param required')
+  }
+
+
+  var app = Applications.find({appId: appId}, {fields: { terms: 1}});
+  app.terms = app.terms || [];
+
+  var user = ZeemaUsers.findOne({'email': email});
+  if(!user){
+    endResponseWithError(res, 'user not found')
+    return;
+  }
+  user.terms = user.terms || [];
+
+  var diff = _.difference(app.terms, user.terms);
+  var responseObject = {}
+  if(diff.length == 0){
+    responseObject = {status: "OK"}
+  } else {
+    var terms = Terms.find({_id: {$in: diff}}).fetch();
+    responseObject = {countNotAgreedTerms: terms};
+  }
+  var response = callback + "(" + JSON.stringify(responseObject) + ")";
+  res.end(response);
+
+}
+
+
+function endResponseWithError(res, msg){
+  res.statusCode = 403;
+  res.end('user not found');
+  return;
+}
