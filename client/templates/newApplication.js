@@ -30,9 +30,6 @@ Template.newApplication.helpers({
     var appid = Router.current().params._id;
     var apps =  Applications.findOne({_id:appid});
     var appsTerms = apps.terms || [];
-    console.log(appsTerms);
-    // console.log(appsTerms.fetch());
-    // console.log( Terms.find( { _id:{ $in:appsTerms  } } ).fetch()  );
     return Terms.find( { _id:{ $in:appsTerms  } } );
   }
 })
@@ -45,15 +42,11 @@ Template.newApplication.events({
             type:"local"
         }, function(e, res) {
             if (!e) {
-                console.log("sucessfully saved the");
+                toastr.success('New Term has been added');
                 var appid = Router.current().params._id;
-                console.log(Applications.find({_id:appid}));
                 Applications.update({_id:appid},{$push:{terms:res}});
-                // db.students.update(
-                //    { _id: 1 },
-                //    { $push: { scores: 89 } }
-                // )
-
+            }else{
+                toastr.warning('Failed to create New Terms');
             }
         });
     }
