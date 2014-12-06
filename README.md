@@ -3,7 +3,7 @@
 
 ## Description
 
-[![Koding Hackathon](/images/badge.png?raw=true "Koding Hackathon")](https://koding.com/Hackathon)
+[![Koding Hackathon](https://raw.githubusercontent.com/koding/hackathon.submit/master/images/badge.png "Koding Hackathon")](https://koding.com/Hackathon)
 
 ## Screenshots
 
