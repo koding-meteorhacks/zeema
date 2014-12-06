@@ -1,6 +1,6 @@
 Router.map(function() {
   this.route('checkApp', {
-      path: '/check/:appId/',
+      path: '/check',
       where: 'server',
       action: CheckApp
   });

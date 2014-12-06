@@ -28,27 +28,20 @@ CheckApp = function (){
   app.terms = app.terms || [];
 
   var user = ZeemaUsers.findOne({'email': email});
-
-  if(!user){
-    endResponseWithError(res, 'user not found')
-    return;
-  }
-  user.terms = user.terms || [];
-
-  var diff = _.difference(app.terms, user.terms);
+  var userTerms = (user)? user.terms || [] : [];
+  var diff = _.difference(app.terms || [], userTerms);
 
   var responseObject = {}
   if(diff.length == 0){
     responseObject = {status: "OK"}
   } else {
     var terms = Terms.find({_id: {$in: diff}}).fetch();
-    responseObject = {countNotAgreedTerms: terms};
+    var termsList = _.pluck(terms, 'term');
+    responseObject = {status: "NOT_OK", countNotAgreedTerms: termsList};
   }
   var response = callback + "(" + JSON.stringify(responseObject) + ")";
   res.end(response);
-
 }
-
 
 function endResponseWithError(res, msg){
   res.statusCode = 403;
