@@ -5,7 +5,7 @@ Template.createApplication.events({
         Applications.insert({
             name: appName
         }, function(e, res) {
-            if (e) {
+            if (!e) {
                 toastr.success('Application has been created');
                 Router.go('/');
             }else{
