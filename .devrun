@@ -1,0 +1,5 @@
+#!/bin/bash
+
+MONGO_URL=mongodb://localhost/apm \
+MONGO_OPLOG_URL=mongodb://localhost/local \
+meteor --settings ./settings.json $@
