@@ -4,8 +4,11 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 iron:router
 less
 nemo64:bootstrap
+rajit:accounts-ui-bootstrap-3
+accounts-password
+joshowens:accounts-entry
+random
+

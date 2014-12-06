@@ -1,0 +1,27 @@
+<template name="devDashboard">
+  <a class="btn btn-primary"
+  href="{{pathFor 'createApplication'}}">
+  Create Application
+  </a>
+  <br>
+  <br>
+  <br>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Terms</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each applications}}
+      <tr>
+        <td>.</td>
+        <td>
+          <a href="{{ pathFor 'newApplication' }}">{{name}}</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>

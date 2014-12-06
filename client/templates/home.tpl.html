@@ -1,4 +1,7 @@
 <template name="home">
-
-  home
+ 	{{#unless currentUser}}
+  		home
+  	{{else}}
+  		{{> devDashboard}}
+  	{{/unless}}
 </template>
