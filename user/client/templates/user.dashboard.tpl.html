@@ -1,3 +1,31 @@
 <template name="user.dashboard">
-  DASHBOARD
+  <div class="container">
+
+    <div class="row">
+      <h2>Global Terms</h2>
+      <ul class="list-group">
+        {{#each globalTerms}}
+        <li class="list-group-item">{{description}}</li>
+        {{else}}
+        <div style="position:relative">{{> widget_loading_indicator}}</div>
+        {{/each}}
+      </ul>
+    </div>
+    <hr>
+
+    <div class="row">
+      <h2>Application Terms</h2>
+      {{#each applicationTerms}}
+      <h3>{{name}}</h3>
+      <ul class="list-group">
+        {{#each terms}}
+        <li class="list-group-item">{{description}}</li>
+        {{/each}}
+      </ul>
+      {{else}}
+      <div style="position:relative">{{> widget_loading_indicator}}</div>
+      {{/each}}
+    </div>
+
+  </div>
 </template>
