@@ -19,11 +19,16 @@ CheckApp = function (){
     endResponseWithError(res, 'appId param required')
   }
 
+  var app = Applications.findOne({_id: appId});
 
-  var app = Applications.find({appId: appId}, {fields: { terms: 1}});
+  if(!app){
+    endResponseWithError(res, 'app not found')
+    return;  
+  }
   app.terms = app.terms || [];
 
   var user = ZeemaUsers.findOne({'email': email});
+
   if(!user){
     endResponseWithError(res, 'user not found')
     return;
@@ -31,6 +36,7 @@ CheckApp = function (){
   user.terms = user.terms || [];
 
   var diff = _.difference(app.terms, user.terms);
+
   var responseObject = {}
   if(diff.length == 0){
     responseObject = {status: "OK"}
@@ -46,6 +52,6 @@ CheckApp = function (){
 
 function endResponseWithError(res, msg){
   res.statusCode = 403;
-  res.end('user not found');
+  res.end(msg);
   return;
 }
