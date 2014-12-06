@@ -1,3 +1,4 @@
+Meteor.startup(function() {
   Applications.allow({
     'insert': function (userId,doc) {
       if ( Meteor.userId()) {
@@ -25,21 +26,4 @@
       }
     }
   });
-
-  Meteor.publish("applications", function () {
-    var curUser = this.userId;
-    if (curUser) {
-      return Applications.find({userId:curUser});
-    }else{
-      this.ready();
-    }
-  });
-
-  Meteor.publish("terms", function () {
-    var curUser = this.userId;
-    if (curUser) {
-      return Terms.find();
-    }else{
-      this.ready();
-    }
-  });
+});
