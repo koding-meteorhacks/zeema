@@ -1,20 +1,8 @@
 Template.newApplication.rendered = function() {
-
-    /*var data = [{
-        "Name": "We can share your personal information with other parties",
-        "id":"1"
-    }, {
-        "Name": "This service tracks you on other websites",
-        "id":"2"
-    }, {
-        "Name": "Google can use your content for all their existing and future services",
-        "id":"3"
-    }];*/
-
     var data = Terms.find({
         type: "global"
     }).fetch();
-    console.log(data);
+    
     var bestPictures = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('term'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -30,12 +18,10 @@ Template.newApplication.rendered = function() {
     });
 
     $('#the-basics .typeahead').on('typeahead:selected ', function(e, d) {
-        console.log(e, d);
-        $('#the-basics .typeahead').attr("type", "gobal");
+        $('#the-basics .typeahead').attr("type", "global");
         $('#the-basics .typeahead').attr("phrase", d.term);
         $('#the-basics .typeahead').attr("phraseId", d._id);
     });
-    //$("#gobal-terms").select2();
 }
 
 Template.newApplication.helpers({
@@ -46,6 +32,25 @@ Template.newApplication.helpers({
         });
     },
 
+
+    "isGlobal": function  () {
+        if (this.type=="global") {
+            return true;
+        }else{
+            return false;
+        }
+    },
+
+    "isGood" : function  () {
+        if (this.category=="good") {
+            return true;
+        }else{
+            return false;
+        }
+    },
+    "globalTerms": function  () {
+        return Terms.find({type: "global"});
+    },
     "terms": function() {
         var appid = Router.current().params._id;
         var apps = Applications.findOne({
@@ -61,59 +66,15 @@ Template.newApplication.helpers({
 })
 
 Template.newApplication.events({
-    'click #addTerms': function(e) {
-
-        var appid = Router.current().params._id;
-        var phraseId = "";
-        var type = "";
-        var terms = "";
-
-        if ($('#the-basics .typeahead').attr("type") === "global" && $('#the-basics .typeahead').typeahead('val') === $('#the-basics .typeahead').attr("phrase")) {
-            phraseId = $('#the-basics .typeahead').attr("phraseId");
-            type = "global";
-            terms = "";
-        } else {
-            type = "local";
-            terms = $('#the-basics .typeahead').typeahead('val');
-        }
-
-        Meteor.call("addTerm", appid, terms, type, phraseId, function(error, res) {
-            if (res) {
-                toastr.success('New Term has been added');
-            } else {
-                toastr.warning('Failed to create New Terms');
-            }
-        });
+    'click #addTerms': function(e, template) {
+        addNewTerms(e, template);
     },
 
     'keypress #the-basics': function(e, template) {
         if (e.which === 13) {
-            e.preventDefault();
-
-            var appid = Router.current().params._id;
-            var phraseId = "";
-            var type = "";
-            var terms = "";
-
-            if ($('#the-basics .typeahead').attr("type") === "global" && $('#the-basics .typeahead').typeahead('val') === $('#the-basics .typeahead').attr("phrase")) {
-                phraseId = $('#the-basics .typeahead').attr("phraseId");
-                type = "global";
-                terms = "";
-            } else {
-                type = "local";
-                terms = $('#the-basics .typeahead').typeahead('val');
-            }
-
-            Meteor.call("addTerm", appid, terms, type, phraseId, function(error, res) {
-                if (res) {
-                    toastr.success('New Term has been added');
-                } else {
-                    toastr.warning('Failed to create New Terms');
-                }
-            });
-        } else {}
+            addNewTerms(e, template);
+        }
     },
-
     "click .delete-terms": function(e) {
         var appid = Router.current().params._id; //TODO global appid
         var termid = $(e.target).attr("dataId");
@@ -121,6 +82,42 @@ Template.newApplication.events({
         Meteor.call("removeTerm", termid, appid, function(error) {
             toastr.success("Term has been deleted"); // TODO if incorrect?
         });
+    },
+});
+
+function addNewTerms(e, template) {
+
+    if ($('#the-basics .typeahead').typeahead('val') == "") {
+        toastr.warning('Terms cannot be empty');
+        return false;
     }
 
-});
+    e.preventDefault();
+
+    var appid = Router.current().params._id;
+    var phraseId = "";
+    var type = "";
+    var terms = "";
+
+    if ($('#the-basics .typeahead').attr("type") === "global" && $('#the-basics .typeahead').typeahead('val') === $('#the-basics .typeahead').attr("phrase")) {
+        phraseId = $('#the-basics .typeahead').attr("phraseId");
+        type = "global";
+        terms = "";
+    } else {
+        type = "local";
+        terms = $('#the-basics .typeahead').typeahead('val');
+    }
+
+    Meteor.call("addTerm", appid, terms, type, phraseId, function(error, res) {
+        if (res) {
+            $('#the-basics .typeahead').typeahead('val',"");
+            if (terms == "global") {
+                toastr.success('New Global Term has been added');
+            } else {
+                toastr.success('New Term has been added');
+            }
+        } else {
+            toastr.warning('Failed to create New Terms');
+        }
+    });
+}
