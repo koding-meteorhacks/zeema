@@ -1,8 +1,7 @@
 <template name="user.dashboard">
   <div class="container">
 
-    <div class="row">
-      <h2>Global Terms</h2>
+    <div class="row row-padded">
       <ul class="list-group">
         {{#each globalTerms}}
         <li class="list-group-item">{{description}}</li>
@@ -11,21 +10,32 @@
         {{/each}}
       </ul>
     </div>
-    <hr>
 
-    <div class="row">
-      <h2>Application Terms</h2>
-      {{#each applicationTerms}}
-      <h3>{{name}}</h3>
-      <ul class="list-group">
-        {{#each terms}}
-        <li class="list-group-item">{{description}}</li>
-        {{/each}}
-      </ul>
-      {{else}}
-      <div style="position:relative">{{> widget_loading_indicator}}</div>
+    <div class="row row-padded">
+      {{#each getApplications}}
+      <br><br>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Terms of Service for "{{name}}"
+            <small class="pull-right">
+              <a class="btn btn-default btn-xs" href="{{pathFor 'user.manage' query=getAppManageQuery}}"><span class="glyphicon glyphicon-wrench"></span></a>
+            </small>
+          </h3>
+        </div>
+        <table class="table table-hover">
+          <tbody>
+            {{#each terms}}
+            {{#with getTermInfo}}
+            <tr class="user-manage-term">
+              <td class="user-manage-term-text">{{term}}</td>
+            </tr>
+            {{/with}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
       {{/each}}
     </div>
-
   </div>
 </template>
