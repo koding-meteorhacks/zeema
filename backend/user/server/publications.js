@@ -20,7 +20,8 @@ Meteor.publish("user.applications", function (params) {
   var token = ZeemaUsers.getLoginToken(params.token);
   if(token) {
     var user = ZeemaUsers.findOne({_id: token.user});
-    return Applications.find({terms: {$elemMatch: {$in: user.terms}}});
+    var userApps = _.keys(user.applications) || [];
+    return Applications.find({_id: {$in: userApps}});
   } else {
     this.ready();
   }

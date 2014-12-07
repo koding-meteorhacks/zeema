@@ -22,7 +22,8 @@ Template['user.dashboard'].helpers({
   getApplications: function () {
     userDep.depend();
     if(user) {
-      return Applications.find({terms: {$elemMatch: {$in: user.terms}}});;
+      var userApps = _.keys(user.applications) || [];
+      return Applications.find({_id: {$in: userApps}});
     }
   },
 

@@ -35,7 +35,7 @@ Router.map(function() {
 
   // User Routes
   this.route('user', {
-      layoutTemplate: 'layout.empty',
+      layoutTemplate: 'layout.zeemauser',
       loadingTemplate: 'user.loading',
       path: '/user',
       waitOn: function () {
@@ -62,7 +62,7 @@ Router.map(function() {
   });
 
   this.route('user.login.emailToken', {
-      layoutTemplate: 'layout.empty',
+      layoutTemplate: 'layout.zeemauser',
       path: '/user/login',
       onBeforeAction: function () {
         this.render('user.loading');
@@ -92,7 +92,7 @@ Router.map(function() {
 
 
   this.route('user.manage', {
-      layoutTemplate: 'layout.empty',
+      layoutTemplate: 'layout.zeemauser',
       loadingTemplate: 'user.loading',
       path: '/user/manage',
       waitOn: function () {
