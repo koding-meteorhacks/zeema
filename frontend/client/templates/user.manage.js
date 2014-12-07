@@ -79,21 +79,16 @@ Template['user.manage'].events({
     var self = this;
     var token = localStorage.getItem('user.loginToken');
     var params = {token: token, termId: this._id};
-    console.log(params)
     if(_.contains(user.preferences, this._id)) {
-      console.log('- removing')
       Meteor.call('user.removePreference', params, function (err, res) {
         if(err) throw err;
         user = res.user;
-        console.log(user)
         userDep.changed();
       });
     } else {
-      console.log('- adding')
       Meteor.call('user.addPreference', params, function (err, res) {
         if(err) throw err;
         user = res.user;
-        console.log(user)
         userDep.changed();
       });
     }
