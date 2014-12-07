@@ -81,6 +81,7 @@ Router.map(function() {
             Meteor.call('user.getUserInfo', params, function (err, res) {
               var email = encodeURIComponent(res.user.email);
               Router.go('/user/manage?appId='+appId+'&email='+email);
+              LoginTokenDeps.changed();
             });
           } else {
             if(err) console.error(err);
@@ -90,6 +91,18 @@ Router.map(function() {
       }
   });
 
+  this.route('user.logout', {
+      layoutTemplate: 'layout.zeemauser',
+      path: '/user/logout',
+      onBeforeAction: function () {
+        this.render('user.loading');
+        this.next();
+      },
+      action: function () {
+        localStorage.removeItem('user.loginToken');
+        Router.go('/user/login');
+      }
+  });
 
   this.route('user.manage', {
       layoutTemplate: 'layout.zeemauser',
@@ -107,12 +120,12 @@ Router.map(function() {
         var self = this;
         var token = localStorage.getItem('user.loginToken');
         var params = {token: token};
-        Meteor.call('user.checkLoginToken', params, function (err, res) {
-          if(!err && res) {
-            self.render('user.manage');
-          } else {
-            self.render('user.manage');
+        Meteor.call('user.getUserInfo', params, function (err, res) {
+          if(!(!err && res && res.user
+              && res.user.email === Router.current().params.query.email)) {
+            localStorage.removeItem('user.loginToken');
           }
+          self.render('user.manage');
         });
       }
   });

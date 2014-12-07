@@ -13,7 +13,11 @@
 
       <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-              <li><a href="/user">My Zeema</a></li>
+            {{#if headerLink}}
+            {{#with headerLink}}
+              <li><a href="{{link}}">{{text}}</a></li>
+            {{/with}}
+            {{/if}}
           </ul>
           <ul class="nav navbar-nav navbar-right">
           </ul>
