@@ -63,7 +63,7 @@ window._zeema_check = function(payload){
     document.body.appendChild(zeema_div);
     var zeema_text = document.createElement('span');
     zeema_text.id = 'zeema-no-agree-text';
-    zeema_text.innerHTML += "You <b>agree</b> with <b> All</b> terms of " + payload.appName;
+    zeema_text.innerHTML += "You <b>agree</b> with <b> all</b> terms of " + payload.appName;
     zeema_div.style.display='none';
     zeema_div.appendChild(zeema_text);
 
