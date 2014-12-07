@@ -36,7 +36,13 @@ Router.map(function() {
   // User Routes
   this.route('user', {
       layoutTemplate: 'layout.empty',
+      loadingTemplate: 'user.loading',
       path: '/user',
+      waitOn: function () {
+        var token = localStorage.getItem('user.loginToken');
+        var params = {token: token};
+        return Meteor.subscribe('user.applications', params);
+      },
       onBeforeAction: function () {
         this.render('user.loading');
         this.next();
@@ -90,7 +96,8 @@ Router.map(function() {
       loadingTemplate: 'user.loading',
       path: '/user/manage',
       waitOn: function () {
-        var params = {appId: this.params.query.appId};
+        var token = localStorage.getItem('user.loginToken');
+        var params = {appId: this.params.query.appId, token: token};
         return [
           Meteor.subscribe('user.applicationInfo', params),
           Meteor.subscribe('user.applicationTerms', params)
