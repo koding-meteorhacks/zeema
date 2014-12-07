@@ -1,11 +1,22 @@
 Template.newApplication.rendered = function() {
-    var data = [{
-        "Name": "One"
+
+    /*var data = [{
+        "Name": "We can share your personal information with other parties",
+        "id":"1"
     }, {
-        "Name": "Second"
-    }];
+        "Name": "This service tracks you on other websites",
+        "id":"2"
+    }, {
+        "Name": "Google can use your content for all their existing and future services",
+        "id":"3"
+    }];*/
+
+    var data = Terms.find({
+        type: "gobal"
+    }).fetch();
+    // console.log(data.fetch());
     var bestPictures = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Name'),
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('term'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         local: data
     });
@@ -14,9 +25,17 @@ Template.newApplication.rendered = function() {
         highlight: true
     }, {
         name: 'best-pictures',
-        displayKey: 'Name',
+        displayKey: 'term',
         source: bestPictures.ttAdapter()
     });
+
+    $('#the-basics .typeahead').on('typeahead:selected ', function(e, d) {
+        console.log(e, d);
+        $('#the-basics .typeahead').attr("type", "gobal");
+        $('#the-basics .typeahead').attr("phrase", d.term);
+        $('#the-basics .typeahead').attr("phraseId", d._id);
+    });
+    //$("#gobal-terms").select2();
 }
 
 Template.newApplication.helpers({
@@ -43,32 +62,63 @@ Template.newApplication.helpers({
 
 Template.newApplication.events({
     'click #addTerms': function(e) {
-        var terms = $("#newTerms").val();
-        Terms.insert({
-            term: terms,
-            type: "local"
-        }, function(e, res) {
-            if (!e) {
+
+        var appid = Router.current().params._id;
+        var phraseId = "";
+        var type = "";
+        var terms = "";
+
+        if ($('#the-basics .typeahead').attr("type") === "gobal" && $('#the-basics .typeahead').typeahead('val') === $('#the-basics .typeahead').attr("phrase")) {
+            phraseId = $('#the-basics .typeahead').attr("phraseId");
+            type = "gobal";
+            terms = "";
+        } else {
+            type = "local";
+            terms = $('#the-basics .typeahead').typeahead('val');
+        }
+
+        Meteor.call("addTerm", appid, terms, type, phraseId, function(error, res) {
+            if (res) {
                 toastr.success('New Term has been added');
-                var appid = Router.current().params._id;
-                Applications.update({
-                    _id: appid
-                }, {
-                    $push: {
-                        terms: res
-                    }
-                });
             } else {
                 toastr.warning('Failed to create New Terms');
             }
         });
     },
 
+    'keypress #the-basics': function(e, template) {
+        if (e.which === 13) {
+            e.preventDefault();
+
+            var appid = Router.current().params._id;
+            var phraseId = "";
+            var type = "";
+            var terms = "";
+
+            if ($('#the-basics .typeahead').attr("type") === "gobal" && $('#the-basics .typeahead').typeahead('val') === $('#the-basics .typeahead').attr("phrase")) {
+                phraseId = $('#the-basics .typeahead').attr("phraseId");
+                type = "gobal";
+                terms = "";
+            } else {
+                type = "local";
+                terms = $('#the-basics .typeahead').typeahead('val');
+            }
+
+            Meteor.call("addTerm", appid, terms, type, phraseId, function(error, res) {
+                if (res) {
+                    toastr.success('New Term has been added');
+                } else {
+                    toastr.warning('Failed to create New Terms');
+                }
+            });
+        } else {}
+    },
+
     "click .delete-terms": function(e) {
         var appid = Router.current().params._id; //TODO gobal appid
         var termid = $(e.target).attr("dataId");
 
-        Meteor.call("removeTerm",termid,appid, function (error) {
+        Meteor.call("removeTerm", termid, appid, function(error) {
             toastr.success("Term has been deleted"); // TODO if incorrect?
         });
     }

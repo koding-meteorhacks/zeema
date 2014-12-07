@@ -19,4 +19,20 @@ Meteor.methods({
             }
         });
     },
+
+    addTerm: function  (appid,term,type,phraseId) {
+        if (type=="gobal") {
+            var res = Applications.update({_id: appid},{$push: {terms: phraseId}});
+        }else{       
+            var res = Terms.insert({term: term,type: "local"});
+            console.log(res);
+            res = Applications.update({_id: appid},{$push: {terms: res}});
+        }
+
+        if (res==1) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 });
