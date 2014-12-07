@@ -60,6 +60,7 @@ oauth2@1.1.1
 oauth@1.1.2
 observe-sequence@1.0.3
 ordered-dict@1.0.1
+pahans:reactive-modal@1.0.1
 rajit:accounts-ui-bootstrap-3@0.3.10
 random@1.0.1
 reactive-dict@1.0.4
