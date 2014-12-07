@@ -101,8 +101,16 @@ Template['user.manage'].events({
     var params = {token: token, termId: this._id, appId: appId};
     Meteor.call('user.removeTerm', params, function (err, res) {
       if(err) throw err;
-      user = res.user;
-      userDep.changed();
+      if(_.contains(user.preferences, params.termId)) {
+        Meteor.call('user.removePreference', params, function (err, res) {
+          if(err) throw err;
+          user = res.user;
+          userDep.changed();
+        });
+      } else {
+        user = res.user;
+        userDep.changed();
+      }
     });
   },
 })

@@ -24,13 +24,12 @@
                   <td class="user-manage-term-text">{{term}}</td>
                   {{#if zeemaUser}}
                   <td class="user-manage-term-buttons">
-                    {{#if isAgreed}}
-                      <button type="button" class="btn {{#if isGlobal}}btn-success{{else}}btn-default{{/if}} btn-sm user-manage-global-button"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></button>
-                    {{/if}}
-
                     <div class="btn-group" role="group" aria-label="...">
-                      <button type="button" class="btn {{#if isLocalAgreed}}btn-success{{else}}btn-default{{/if}} btn-sm user-manage-agree-button" disabled="{{#if isGlobal}}disabled{{/if}}"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
-                      <button type="button" class="btn {{#if isLocalAgreed}}btn-default{{else}}btn-warning{{/if}} btn-sm user-manage-disagree-button" disabled="{{#if isGlobal}}disabled{{/if}}"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> </button>
+                      {{#if isAgreed}}
+                        <button type="button" class="btn {{#if isGlobal}}btn-success{{else}}btn-default{{/if}} btn-sm user-manage-global-button"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></button>
+                      {{/if}}
+                      <button type="button" class="btn {{#if isLocalAgreed}}btn-success{{else}}btn-default{{/if}} btn-sm user-manage-agree-button"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
+                      <button type="button" class="btn {{#if isLocalAgreed}}btn-default{{else}}btn-warning{{/if}} btn-sm user-manage-disagree-button"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button>
                     </div>
                   </td>
                   {{/if}}
