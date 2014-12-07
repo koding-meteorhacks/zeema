@@ -1,7 +1,23 @@
 Template.createApplication.events({
-    'click #createApplication': function(e) {
+    'click #createApplication': function(e,template) {
+            createNewApplication(e,template);
+    },
+    'keypress #applicationName': function(e, template) {
+        if (e.which === 13) {
+            createNewApplication(e,template);
+        } else {}
+    }
+});
+
+function createNewApplication (e,template) {
         e.preventDefault();
+
         var appName = $("#applicationName").val();
+        if (appName=="") {
+            toastr.warning('Appname cannot be empty');
+            return false;
+        };
+
         Applications.insert({
             name: appName
         }, function(e, res) {
@@ -12,21 +28,4 @@ Template.createApplication.events({
                 toastr.warning('Failed to create application');
             }
         });
-    },
-    'keypress #applicationName': function(e, template) {
-        if (e.which === 13) {
-            e.preventDefault();
-            var appName = $("#applicationName").val();
-            Applications.insert({
-                name: appName
-            }, function(e, res) {
-                if (!e) {
-                    toastr.success('Application has been created');
-                    Router.go('/');
-                } else {
-                    toastr.warning('Failed to create application');
-                }
-            });
-        } else {}
-    }
-});
+}
