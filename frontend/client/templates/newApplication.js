@@ -63,6 +63,12 @@ Template.newApplication.helpers({
             }
         });
     },
+    scriptUrl: function(){
+        return Meteor.absoluteUrl('api.js');
+    },
+    appId: function(){
+        return Router.current().params._id;
+    }
 })
 
 Template.newApplication.events({

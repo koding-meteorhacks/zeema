@@ -1,8 +1,15 @@
 <template name="newApplication">
+  <h4> paste following code before &lt;/body&gt; tag of your app</h4>
+
+  <pre>
+  &lt;script type="text/javascript" src="{{scriptUrl}}"&gt;&lt;/script&gt;
+  &lt;script type="text/javascript"&gt;
+      Zeema.check("{{appId}}", "&lt;loggedIn user's email&gt;");
+  &lt;/script&gt;
+  </pre>
+
 <form role="form">
   <div class="clear"></div>
-  <br>
-  <br>
   <br>
   <table class="table table-striped table-bordered">
     <thead>
