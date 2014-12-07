@@ -2,7 +2,13 @@
   <div class="container">
 
     <div class="row">
-      <br>
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+        <ul class="list-inline small text-secondary">
+          <li><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> = Accept Globally (For all apps)</li>
+          <li><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> = Accept For "{{appName}}"</li>
+          <li><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> = Reject this term</li>
+        </ul>
+      </div>
     </div>
 
     <div class="row">
@@ -11,11 +17,6 @@
           <div class="panel-heading">
             <h3 class="panel-title">Terms of Service for "{{appName}}"</h3>
           </div>
-<!--
-          <div class="panel-body user-manage-app-intro">
-            APP_INTRO
-          </div>
- -->
           <table class="table">
             <tbody>
               {{#each appTerms}}
@@ -24,12 +25,12 @@
                   {{#if zeemaUser}}
                   <td class="user-manage-term-buttons">
                     {{#if isAgreed}}
-                      <button type="button" class="btn {{#if isGlobal}}btn-success{{else}}btn-default{{/if}} btn-sm user-manage-global-button"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Make Global</button>
+                      <button type="button" class="btn {{#if isGlobal}}btn-success{{else}}btn-default{{/if}} btn-sm user-manage-global-button"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></button>
                     {{/if}}
 
                     <div class="btn-group" role="group" aria-label="...">
-                      <button type="button" class="btn {{#if isLocalAgreed}}btn-success{{else}}btn-default{{/if}} btn-sm user-manage-agree-button" disabled="{{#if isGlobal}}disabled{{/if}}"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Accept</button>
-                      <button type="button" class="btn {{#if isLocalAgreed}}btn-default{{else}}btn-warning{{/if}} btn-sm user-manage-disagree-button" disabled="{{#if isGlobal}}disabled{{/if}}"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Reject</button>
+                      <button type="button" class="btn {{#if isLocalAgreed}}btn-success{{else}}btn-default{{/if}} btn-sm user-manage-agree-button" disabled="{{#if isGlobal}}disabled{{/if}}"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
+                      <button type="button" class="btn {{#if isLocalAgreed}}btn-default{{else}}btn-warning{{/if}} btn-sm user-manage-disagree-button" disabled="{{#if isGlobal}}disabled{{/if}}"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> </button>
                     </div>
                   </td>
                   {{/if}}

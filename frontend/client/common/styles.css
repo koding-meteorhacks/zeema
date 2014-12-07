@@ -1,3 +1,11 @@
 .row-padded {
   margin: 10px 0;
 }
+
+.text-secondary {
+  opacity: 0.7;
+}
+
+.btn.btn-sm:focus, .btn.btn-sm:active:focus, .btn.btn-sm.active:focus, .btn.btn-sm.focus, .btn.btn-sm:active.focus, .btn.btn-sm.active.focus {
+  outline: none;
+}
