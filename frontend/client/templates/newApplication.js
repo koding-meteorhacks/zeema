@@ -20,34 +20,68 @@ Template.newApplication.rendered = function() {
 }
 
 Template.newApplication.helpers({
-  "applications"  :  function  () {
-    var appid = Router.current().params._id;
-    return Applications.find({_id:appid}) ;
-  },
+    "applications": function() {
+        var appid = Router.current().params._id;
+        return Applications.find({
+            _id: appid
+        });
+    },
 
-  "terms": function  () {
-
-    var appid = Router.current().params._id;
-    var apps =  Applications.findOne({_id:appid});
-    var appsTerms = apps.terms || [];
-    return Terms.find( { _id:{ $in:appsTerms  } } );
-  }
+    "terms": function() {
+        var appid = Router.current().params._id;
+        var apps = Applications.findOne({
+            _id: appid
+        });
+        var appsTerms = apps.terms || [];
+        return Terms.find({
+            _id: {
+                $in: appsTerms
+            }
+        });
+    },
 })
 
 Template.newApplication.events({
-    'click #addTerms': function  (e) {
+    'click #addTerms': function(e) {
         var terms = $("#newTerms").val();
         Terms.insert({
             term: terms,
-            type:"local"
+            type: "local"
         }, function(e, res) {
             if (!e) {
                 toastr.success('New Term has been added');
                 var appid = Router.current().params._id;
-                Applications.update({_id:appid},{$push:{terms:res}});
-            }else{
+                Applications.update({
+                    _id: appid
+                }, {
+                    $push: {
+                        terms: res
+                    }
+                });
+            } else {
                 toastr.warning('Failed to create New Terms');
             }
         });
+    },
+
+    "click .delete-terms": function(e) {
+        var appid = Router.current().params._id; //TODO gobal appid
+        var termId = $(e.target).attr("dataId");
+
+        Applications.update({
+            _id: appid
+        }, {
+            $pull: {
+                terms: termId
+            }
+        }, function(e, res) {
+            if (!e) {
+                toastr.success("Term has been deleted");
+            } else {
+                toastr.warning('Failed to delete the term');
+            }
+        });
+
     }
+
 });

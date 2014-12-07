@@ -7,15 +7,17 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>#</th>
-        <th>Terms</th>
+        <th>Your Terms</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       {{#each terms}}
       <tr>
-        <td>.</td>
-        <td>{{term}}</td>
+        <td class="col-sm-8">{{term}}</td>
+        <td class="col-sm-2">
+          <a class="btn btn-danger delete-terms" dataId="{{_id}}" >Delete</a>
+        </td>
       </tr>
       {{/each}}
     </tbody>
