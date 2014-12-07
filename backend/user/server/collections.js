@@ -2,6 +2,11 @@ ZeemaUsers = new Meteor.Collection('zeemaUsers');
 ZeemaLoginTokens = new Meteor.Collection('zeemaLoginTokens');
 ZeemaEmailTokens = new Meteor.Collection('zeemaEmailTokens');
 
+ZeemaUsers.createUser = function (fields) {
+  _.extend(fields, {preferences: [], applications: {}});
+  return ZeemaUsers.insert(fields);
+}
+
 ZeemaUsers.getLoginToken = function (loginToken) {
   // params => {loginToken}
   var token = ZeemaLoginTokens.findOne({_id: loginToken});

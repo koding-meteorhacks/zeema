@@ -19,7 +19,10 @@ Meteor.methods({
   'user.requestEmailToken': function (params) {
     // params => {email}
     var user = ZeemaUsers.findOne({email: params.email});
-    if(!user) throw new Meteor.Error('Cannot find user');
+    if(!user) {
+      ZeemaUsers.createUser({email: params.email});
+      user = ZeemaUsers.findOne({email: params.email});
+    }
     var emailToken = ZeemaUsers.createEmailToken(user._id);
     var options = {email: user.email, emailToken: emailToken};
     if(params.appId) options.appId = params.appId;
