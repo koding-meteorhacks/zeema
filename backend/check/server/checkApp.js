@@ -25,7 +25,7 @@ CheckApp = function (req, res){
   app.terms = app.terms || [];
 
   var user = ZeemaUsers.findOne({'email': email});
-  var userTerms = (user)? user.terms || [] : [];
+  var userTerms = getAgreedUserTerms(user);
   var diff = _.difference(app.terms || [], userTerms);
 
   var responseObject = {}
@@ -43,4 +43,15 @@ CheckApp = function (req, res){
 function sendResponse(res, statusCode, data){
   res.writeHead(statusCode, {'Content-Type': 'application/javascript'});
   res.end(data);
+}
+
+function getAgreedUserTerms(user, appId){
+  user = user || {};
+  var defaultTerms = user.preferences || [];
+  user.applications =  user.applications || {};
+  user.applications[appId] = user.applications[appId] || {};
+  user.applications[appId]['terms'] = user.applications[appId]['terms'] || [];
+  var customTerms = user.applications[appId]['terms'];
+  var agreedTerms = _.union(defaultTerms, customTerms);
+  return agreedTerms;
 }
