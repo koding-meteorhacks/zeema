@@ -3,4 +3,4 @@
 MONGO_URL=mongodb://localhost/zeema \
 MONGO_OPLOG_URL=mongodb://localhost/local \
 MAIL_URL=smtp://postmaster%40sandboxfb68bc9e1442448ea22d15c428433796.mailgun.org:4i17lm4bal62@smtp.mailgun.org \
-meteor --settings ./settings.json --port 5005 $@
+meteor --settings ../settings.json --port 5005 $@

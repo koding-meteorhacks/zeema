@@ -10,23 +10,22 @@
         </button>
         <a class="navbar-brand" href="/">Zeema</a>
       </div>
-    
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          {{> loginButtons }}
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">How it works</a></li>
+            {{#if currentUser}}
+              <li><a href="/developer">My Account</a></li>
+              <li><a href="/sign-out">Sign Out</a></li>
+            {{else}}
+              <li><a href="/sign-in">Login as Developer</a></li>
+              <li><a href="/user">Login as User</a></li>
+            {{/if}}
         </ul>
       </div>
     </div>
-
   </nav>
-
   <div class="container">
     <div class="row">
       {{> yield}} 
     </div>
   </div>
-
 </template>

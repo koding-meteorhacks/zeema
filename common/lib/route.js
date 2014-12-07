@@ -9,25 +9,26 @@ Router.configure({
 
 Router.map(function() {
   this.route('home', {
-      path: '/'
+      path: '/',
+      template:"frontPage"
   });
 
   this.route('devDashboard', {
-      path: '/dashboard',
+      path: '/developer',
       onBeforeAction: function() {
           AccountsEntry.signInRequired(this);
       }
   });
 
   this.route('createApplication', {
-      path: '/create_application',
+      path: '/developer/create_application',
       onBeforeAction: function() {
           AccountsEntry.signInRequired(this);
       }
   });
 
   this.route('newApplication', {
-      path: '/application/:_id',
+      path: '/developer/application/:_id',
       onBeforeAction: function() {
           AccountsEntry.signInRequired(this);
       }

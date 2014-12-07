@@ -1,11 +1,13 @@
 <template name="devDashboard">
-  <a class="btn btn-primary"
-  href="{{pathFor 'createApplication'}}">
-  Create Application
+  <div class="row">
+    <a class="btn btn-primary"
+    href="{{pathFor 'createApplication'}}">
+    Create Application
   </a>
-  <br>
-  <br>
-  <br>
+</div>
+<br>
+<br>
+<div class="row">
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
@@ -22,4 +24,5 @@
       {{/each}}
     </tbody>
   </table>
+</div>
 </template>
