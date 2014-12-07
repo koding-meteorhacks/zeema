@@ -83,7 +83,7 @@ function sendEmailToken (params) {
   // params => {email, emailToken, appId}
   Email.send({
     to: params.email,
-    from: 'Zeema <hello@zeema.io>',
+    from: 'Zeema <zeema@kadira.io>',
     subject: 'Zeema Login',
     html: EMAIL_TEMPLATE({token: params.emailToken, appId: params.appId}),
   });
