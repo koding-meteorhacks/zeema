@@ -24,6 +24,19 @@ Meteor.startup(function() {
       }else{
         return false;
       }
+    },'update': function (userId,doc) {
+      if ( Meteor.userId()) {
+        return true; 
+      }else{
+        return false;
+      }
+    },'remove': function (userId,doc) {
+      console.log(Meteor.userId());
+      if ( Meteor.userId()) {
+        return true; 
+      }else{
+        return false;
+      }
     }
   });
 });

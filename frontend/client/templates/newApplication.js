@@ -66,22 +66,11 @@ Template.newApplication.events({
 
     "click .delete-terms": function(e) {
         var appid = Router.current().params._id; //TODO gobal appid
-        var termId = $(e.target).attr("dataId");
+        var termid = $(e.target).attr("dataId");
 
-        Applications.update({
-            _id: appid
-        }, {
-            $pull: {
-                terms: termId
-            }
-        }, function(e, res) {
-            if (!e) {
-                toastr.success("Term has been deleted");
-            } else {
-                toastr.warning('Failed to delete the term');
-            }
+        Meteor.call("removeTerm",termid,appid, function (error) {
+            toastr.success("Term has been deleted"); // TODO if incorrect?
         });
-
     }
 
 });
