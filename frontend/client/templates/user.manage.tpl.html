@@ -24,8 +24,8 @@
                   {{#if zeemaUser}}
                   <td class="user-manage-term-buttons">
                     <div class="btn-group" role="group" aria-label="...">
-                      <button type="button" class="btn btn-default btn-sm">Agree</button>
-                      <button type="button" class="btn btn-default btn-sm">Disagree</button>
+                      <button type="button" class="btn {{#if isAgreed}}btn-success{{else}}btn-default{{/if}} btn-sm user-manage-agree-button">Agree</button>
+                      <button type="button" class="btn {{#if isAgreed}}btn-default{{else}}btn-warning{{/if}} btn-sm user-manage-disagree-button">Disagree</button>
                     </div>
                   </td>
                   {{/if}}

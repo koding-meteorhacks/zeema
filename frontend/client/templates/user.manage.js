@@ -35,6 +35,10 @@ Template['user.manage'].helpers({
   zeemaUser: function () {
     userDep.depend();
     return user;
+  },
+
+  isAgreed: function () {
+    return user.terms && _.contains(user.terms, this._id);
   }
 });
 
@@ -42,5 +46,27 @@ Template['user.manage'].events({
   'click #login-button': function (e) {
     e.preventDefault();
     Router.go('/user/login'+ location.search);
+  },
+
+  'click .user-manage-agree-button': function (e) {
+    var self = this;
+    var token = localStorage.getItem('user.loginToken');
+    var params = {token: token, termId: this._id};
+    Meteor.call('user.addTerm', params, function (err, res) {
+      if(err) throw err;
+      user.terms = _.union(user.terms, [self._id]);
+      userDep.changed();
+    });
+  },
+
+  'click .user-manage-disagree-button': function (e) {
+    var self = this;
+    var token = localStorage.getItem('user.loginToken');
+    var params = {token: token, termId: this._id};
+    Meteor.call('user.removeTerm', params, function (err, res) {
+      if(err) throw err;
+      user.terms = _.difference(user.terms, [self._id]);
+      userDep.changed();
+    });
   },
 })

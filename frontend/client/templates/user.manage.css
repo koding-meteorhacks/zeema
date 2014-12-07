@@ -6,12 +6,13 @@
 
 .user-manage-term td.user-manage-term-text {
   padding: 15px 5px 15px 15px;
-  vertical-align: middle;
+  vertical-align: bottom;
 }
 
 .user-manage-term td.user-manage-term-buttons {
+  min-width: 150px;
   padding: 15px 15px 15px 5px;
-  vertical-align: middle;
+  vertical-align: bottom;
   text-align: right;
 }
 
