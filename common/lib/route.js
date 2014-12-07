@@ -57,22 +57,57 @@ Router.map(function() {
 
   this.route('user.login.emailToken', {
       layoutTemplate: 'layout.empty',
-      path: '/user/login/:token?',
+      path: '/user/login',
       onBeforeAction: function () {
         this.render('user.loading');
         this.next();
       },
       action: function () {
         var self = this;
-        var params = {token: this.params.token};
-        if(!this.params.token) return this.render('user.login');
+        var appId = this.params.query.appId;
+        var params = {token: this.params.query.token};
+        if(!params.token) return this.render('user.login');
         Meteor.call('user.getLoginToken', params, function (err, res) {
           if(!err && res) {
             localStorage.setItem('user.loginToken', res.loginToken);
-            Router.go('/user');
+            if(!appId) return Router.go('/user');
+            var params = {token: res.loginToken};
+            Meteor.call('user.getUserInfo', params, function (err, res) {
+              var email = encodeURIComponent(res.user.email);
+              Router.go('/user/manage?appId='+appId+'&email='+email);
+            });
           } else {
             if(err) console.error(err);
             Router.go('/user/login');
+          }
+        });
+      }
+  });
+
+
+  this.route('user.manage', {
+      layoutTemplate: 'layout.empty',
+      path: '/user/manage',
+      onBeforeAction: function () {
+        this.render('user.loading');
+        this.next();
+      },
+      waitOn: function () {
+        var params = {appId: this.params.query.appId};
+        return [
+          Meteor.subscribe('user.applicationInfo', params),
+          Meteor.subscribe('user.applicationTerms', params)
+        ];
+      },
+      action: function () {
+        var self = this;
+        var token = localStorage.getItem('user.loginToken');
+        var params = {token: token};
+        Meteor.call('user.checkLoginToken', params, function (err, res) {
+          if(!err && res) {
+            self.render('user.manage');
+          } else {
+            self.render('user.manage');
           }
         });
       }

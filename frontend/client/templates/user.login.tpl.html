@@ -10,10 +10,15 @@
         <legend>User Login</legend>
         <div class="form-group">
           <label for="user-email">E-mail</label>
-          <input type="text" class="form-control" id="user-email" name="user-email" autofocus>
+          <input type="text" class="form-control" id="user-email" name="user-email" autofocus value="{{email}}">
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-primary">Request Login Link</button>
       </form>
+    </div>
+
+    <div class="row" style="display:none" id="user-login-instructions">
+      <h3>Login with email</h3>
+      <p>We've sent you an email with a one-time login link. Please follow that link to log into your account.</p>
     </div>
 
   </div>

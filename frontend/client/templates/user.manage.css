@@ -1,0 +1,20 @@
+/*
+.user-manage-app-intro {
+
+}
+*/
+
+.user-manage-term td.user-manage-term-text {
+  padding: 15px 5px 15px 15px;
+  vertical-align: middle;
+}
+
+.user-manage-term td.user-manage-term-buttons {
+  padding: 15px 15px 15px 5px;
+  vertical-align: middle;
+  text-align: right;
+}
+
+.user-manage-footer-buttons {
+  text-align: right;
+}

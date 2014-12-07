@@ -1,0 +1,49 @@
+<template name="user.manage">
+  <div class="container">
+
+    <div class="row">
+      <br>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Terms of Service for "{{appName}}"</h3>
+          </div>
+<!--
+          <div class="panel-body user-manage-app-intro">
+            APP_INTRO
+          </div>
+ -->
+          <table class="table">
+            <tbody>
+              {{#each appTerms}}
+                <tr class="user-manage-term">
+                  <td class="user-manage-term-text">{{term}}</td>
+                  {{#if zeemaUser}}
+                  <td class="user-manage-term-buttons">
+                    <div class="btn-group" role="group" aria-label="...">
+                      <button type="button" class="btn btn-default btn-sm">Agree</button>
+                      <button type="button" class="btn btn-default btn-sm">Disagree</button>
+                    </div>
+                  </td>
+                  {{/if}}
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+
+          {{#if zeemaUser}}
+          {{else}}
+          <div class="panel-footer user-manage-footer-buttons">
+            <button class="btn btn-default btn-sm" type="button" id="login-button">Login</button>
+          </div>
+          {{/if}}
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</template>
