@@ -31,7 +31,11 @@ Meteor.publish("user.applicationTerms", function (params) {
   var token = ZeemaUsers.getLoginToken(params.token);
   if(token) {
     var appInfo = Applications.findOne({_id: params.appId});
-    return Terms.find({_id: {$in: appInfo.terms}});
+    if(appInfo) {
+      return Terms.find({_id: {$in: appInfo.terms}});
+    } else {
+      this.ready();
+    }
   } else {
     this.ready();
   }
