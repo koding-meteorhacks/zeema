@@ -8,7 +8,7 @@
     <thead>
       <tr>
         <th>Your Terms</th>
-        <th>Terms</th>
+        <th>Rating</th>
         <th></th>
       </tr>
     </thead>
@@ -20,12 +20,10 @@
           {{#if isGlobal}}
           
           {{#if isGood}}
-          <div style=" color:red;content:'\2713';">
-            √
+          <div style="color:green;" class="glyphicon glyphicon-thumbs-up">
           </div>
           {{else}}
-          <div style=" color:green;content:'\2713';">
-            X
+          <div style=" color:red;" class="glyphicon glyphicon-thumbs-down">
           </div>
           {{/if}}
           {{else}}
