@@ -21,7 +21,7 @@ Meteor.methods({
     },
 
     addTerm: function  (appid,term,type,phraseId) {
-        if (type=="gobal") {
+        if (type=="global") {
             var res = Applications.update({_id: appid},{$push: {terms: phraseId}});
         }else{       
             var res = Terms.insert({term: term,type: "local"});

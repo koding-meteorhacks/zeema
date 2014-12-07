@@ -12,9 +12,9 @@ Template.newApplication.rendered = function() {
     }];*/
 
     var data = Terms.find({
-        type: "gobal"
+        type: "global"
     }).fetch();
-    // console.log(data.fetch());
+    console.log(data);
     var bestPictures = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('term'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -68,9 +68,9 @@ Template.newApplication.events({
         var type = "";
         var terms = "";
 
-        if ($('#the-basics .typeahead').attr("type") === "gobal" && $('#the-basics .typeahead').typeahead('val') === $('#the-basics .typeahead').attr("phrase")) {
+        if ($('#the-basics .typeahead').attr("type") === "global" && $('#the-basics .typeahead').typeahead('val') === $('#the-basics .typeahead').attr("phrase")) {
             phraseId = $('#the-basics .typeahead').attr("phraseId");
-            type = "gobal";
+            type = "global";
             terms = "";
         } else {
             type = "local";
@@ -95,9 +95,9 @@ Template.newApplication.events({
             var type = "";
             var terms = "";
 
-            if ($('#the-basics .typeahead').attr("type") === "gobal" && $('#the-basics .typeahead').typeahead('val') === $('#the-basics .typeahead').attr("phrase")) {
+            if ($('#the-basics .typeahead').attr("type") === "global" && $('#the-basics .typeahead').typeahead('val') === $('#the-basics .typeahead').attr("phrase")) {
                 phraseId = $('#the-basics .typeahead').attr("phraseId");
-                type = "gobal";
+                type = "global";
                 terms = "";
             } else {
                 type = "local";
@@ -115,7 +115,7 @@ Template.newApplication.events({
     },
 
     "click .delete-terms": function(e) {
-        var appid = Router.current().params._id; //TODO gobal appid
+        var appid = Router.current().params._id; //TODO global appid
         var termid = $(e.target).attr("dataId");
 
         Meteor.call("removeTerm", termid, appid, function(error) {
