@@ -68,7 +68,8 @@ Template.newApplication.helpers({
     },
     appId: function(){
         return Router.current().params._id;
-    }
+    },
+
 })
 
 Template.newApplication.events({
@@ -85,8 +86,31 @@ Template.newApplication.events({
         var appid = Router.current().params._id; //TODO global appid
         var termid = $(e.target).attr("dataId");
 
-        Meteor.call("removeTerm", termid, appid, function(error) {
-            toastr.success("Term has been deleted"); // TODO if incorrect?
+        var deleteConfirm = {
+          template: Template.appDeleteConfirmTerms,
+          title: "Confirm Delete",
+          buttons: {
+            "cancel": {
+              class: 'btn-default',
+              label: 'Cancel'
+            },
+            "ok": {
+              class: 'btn-danger',
+              label: 'Confirm Delete'
+            }
+          }
+        }
+
+        var rd = ReactiveModal.initDialog(deleteConfirm);
+        rd.show();
+        rd.buttons.ok.on('click', function(){
+            Meteor.call("removeTerm", termid, appid, function(error,result) {
+                if(!error){
+                  toastr.success("Application Deleted"); 
+                } else {
+                  toastr.warning(error.message); 
+                }
+            });
         });
     },
 });
