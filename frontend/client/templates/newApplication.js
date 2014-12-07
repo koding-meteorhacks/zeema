@@ -68,6 +68,11 @@ Template.newApplication.helpers({
     },
     appId: function(){
         return Router.current().params._id;
+    },
+    appName: function(){
+      var appId = Router.current().params._id;
+      var app = Applications.findOne({_id: appId});
+      return app.name; 
     }
 })
 
