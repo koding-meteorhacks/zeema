@@ -1,7 +1,9 @@
 <template name="frontPage">
   <div class="col-md-offset-3 col-lg-offset-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
     <h1 class="text-center">Zeema</h1>
-    <p class="text-center">Virtually nobody reads terms before going to agreeing them so, it's a lie and we need to fix it.</p>
+    <p class="text-center">
+      Virtually nobody reads terms before going to agreeing them.<br/>
+      It's a lie and we need to fix it.</p>
     <h2 class="text-center">
       <u>Zeema is the Gravatar for Terms</u>
     </h2>
@@ -19,35 +21,36 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="whole-process">
-          <p>Let's say we've following  stakeholders</p>
-          <ol>
-            <li>zeema.com</li>
-            <li>catsbook.com</li>
-            <li>dogsbook.com</li>
-            <li>john(an user)</li>
-          </ol>
-          <h4>The Process</h4>
+          {{#markdown}}
+  * let's say we've an app called "catsbook.com"
+  * developers of catsbook.com comes to zeema and selects terms they required
+  * we've also an user called "jhon"
+  * jhon also maintain a list of terms he agrees globally in zeema
+  * then once jhon logs into catsbook.com, zeema will tell it's safe or not safe to use the web site based on the terms he agrees.
+          {{/markdown}}
+        </div>  
+        <div role="tabpanel" class="tab-pane" id="developer">
+          {{#markdown}}
+With zeema, you don't need to worry about asking users to agree with terms. You just specify terms you need, we'll take care of the rest. 
 
-          <ul>
-            <li>Developers of "catsbook.com" visit <b>zeema</b> and select terms his app required</li>
-            <li>We've a list of commonly used terms</li>
-            <li>If needed, custom terms can be added</li>
-            <li>Then "catsbook.com" will get a javascript code to paste on the catsbook.com</li>
-            <li>Now john logged into "catsbook.com" it will show he has agree with "catsbook.com"'s terms and ask to manage them</li>
-            <li>There will be an permanent indicator mentioning this. see: <a href="http://image.com">http://image.com</a></li>
-            <li>Once he clicks the manage buton, then he'll redirected to <b>zeema</b></li>
-            <li>Then he can agree into these terms</li>
-            <li>After sometime, he logs into another site "dogsbooks.com"</li>
-            <li>"dogsbook.com" also uses <b>Zeema</b> and it's terms are also identical with "catsbook.com"</li>
-            <li>now john can see an indicator from zeema which tells it's safe to use "dogsbook.com"</li>
-            <li>he can click the zeema indicator and verify it's needs</li>
-          </ul>
+This is all you've to do:
+
+* visit zeema.com and select terms you need
+* we've a list of commonly used terms (try to pick from them)
+* if needed, you can add custom terms as well
+* Then you will get a javascript code to paste on the bottom of the app's HTML code
+          {{/markdown}}
         </div>
-        <div role="tabpanel" class="tab-pane active" id="developer">
-          developer
-        </div>
-        <div role="tabpanel" class="tab-pane active" id="end-user">
-          end user
+        <div role="tabpanel" class="tab-pane" id="end-user">
+          {{#markdown}}
+With zeema, you don't need to read lengthy pages of terms to agree them. You can simply select a set of terms you agree at first. 
+
+Then whenever you visit one of the zeema powered web app, you'll get notified(inside the app) if there are terms you don't agree. Then you can take actions right away.
+
+This is all you've to: <u>**visit zeema.com and select terms you agree**</u>
+
+That's all.
+          {{/markdown}}
         </div>
       </div>
 
