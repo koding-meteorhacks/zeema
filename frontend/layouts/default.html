@@ -13,7 +13,13 @@
     
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          {{> loginButtons }}
+          <li>
+            {{#if currentUser}}
+              <a href="/sign-out">Sign Out</a>
+            {{else}}
+              <a href="/sign-in">Sign In</a>
+            {{/if}}
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#">How it works</a></li>

@@ -7,8 +7,11 @@ meteor-platform
 iron:router
 less
 nemo64:bootstrap
-rajit:accounts-ui-bootstrap-3
 accounts-password
 joshowens:accounts-entry
 underscore
 email
+accounts-github
+service-configuration
+rajit:accounts-ui-bootstrap-3
+

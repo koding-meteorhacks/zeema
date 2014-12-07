@@ -1,7 +1,8 @@
 <template name="home">
- 	{{#unless currentUser}}
+ 	  {{#unless currentUser}}
   		{{>frontPage}}
   	{{else}}
-  		{{> devDashboard}}
+      <a class="btn btn-primary" href="{{pathFor 'devDashboard'}}">
+        Developer Dashboard</a>
   	{{/unless}}
 </template>

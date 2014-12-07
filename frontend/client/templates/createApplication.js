@@ -23,7 +23,7 @@ function createNewApplication (e,template) {
         }, function(e, res) {
             if (!e) {
                 toastr.success('Application has been created');
-                Router.go('/');
+                Router.go('/developer');
             } else {
                 toastr.warning('Failed to create application');
             }
