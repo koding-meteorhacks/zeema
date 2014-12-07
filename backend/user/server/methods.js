@@ -1,3 +1,4 @@
+var resolveUrl = Npm.require('url').resolve;
 
 Meteor.methods({
 
@@ -76,8 +77,9 @@ Meteor.methods({
 
 })
 
-
-var EMAIL_TEMPLATE = _.template('<a href="http://localhost:3000/user/login?token=<%= token %>&appId=<%= appId %>">Click here</a> to login.');
+var domain = process.env.ROOT_URL;
+var loginLink = resolveUrl(domain, "/user/login");
+var EMAIL_TEMPLATE = _.template('<a href="' + loginLink + '?token=<%= token %>&appId=<%= appId %>">Click here</a> to login.');
 function sendEmailToken (params) {
   // params => {email, emailToken, appId}
   Email.send({
