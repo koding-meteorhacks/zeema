@@ -38,17 +38,21 @@ Meteor.methods({
   },
 
   'user.addTerm': function (params) {
-    // params => {token, termId}
+    // params => {token, termId, appId}
     var token = ZeemaUsers.getLoginToken(params.token);
     if(!token) throw new Meteor.Error('Invalid login token');
-    ZeemaUsers.update({_id: token.user}, {$addToSet: {terms: params.termId}});
+    var options = {userId: token.user, appId: params.appId, termId: params.termId};
+    ZeemaUsers.addTerm(options);
+    return {user: ZeemaUsers.findOne({_id: token.user})};
   },
 
   'user.removeTerm': function (params) {
-    // params => {token, termId}
+    // params => {token, termId, appId}
     var token = ZeemaUsers.getLoginToken(params.token);
     if(!token) throw new Meteor.Error('Invalid login token');
-    ZeemaUsers.update({_id: token.user}, {$pull: {terms: params.termId}});
+    var options = {userId: token.user, appId: params.appId, termId: params.termId};
+    ZeemaUsers.removeTerm(options);
+    return {user: ZeemaUsers.findOne({_id: token.user})};
   },
 
 })

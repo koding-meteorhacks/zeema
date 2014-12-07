@@ -1,3 +1,12 @@
+Meteor.publish("user.userInfo", function (params) {
+  var token = ZeemaUsers.getLoginToken(params.token);
+  if(token) {
+    return ZeemaUsers.find({_id: token.user});
+  } else {
+    this.ready();
+  }
+});
+
 Meteor.publish("user.applicationInfo", function (params) {
   var token = ZeemaUsers.getLoginToken(params.token);
   if(token) {

@@ -22,14 +22,7 @@ Template['user.manage'].helpers({
   appTerms: function () {
     var appId = Router.current().params.query.appId;
     var app = Applications.findOne({_id: appId});
-    var terms = Terms.find({_id: {$in: app.terms}}).fetch();
-    userDep.depend();
-    if(user) {
-      _.forEach(terms, function (term) {
-        _.extend(term, {selected: _.contains(user.terms, term._id)});
-      })
-    }
-    return terms;
+    return Terms.find({_id: {$in: app.terms}});
   },
 
   zeemaUser: function () {
@@ -38,7 +31,12 @@ Template['user.manage'].helpers({
   },
 
   isAgreed: function () {
-    return user.terms && _.contains(user.terms, this._id);
+    var appId = Router.current().params.query.appId;
+    userDep.depend();
+    if(user) {
+      return user.applications[appId]
+      && _.contains(user.applications[appId].terms, this._id);
+    }
   }
 });
 
@@ -50,22 +48,24 @@ Template['user.manage'].events({
 
   'click .user-manage-agree-button': function (e) {
     var self = this;
+    var appId = Router.current().params.query.appId;
     var token = localStorage.getItem('user.loginToken');
-    var params = {token: token, termId: this._id};
+    var params = {token: token, termId: this._id, appId: appId};
     Meteor.call('user.addTerm', params, function (err, res) {
       if(err) throw err;
-      user.terms = _.union(user.terms, [self._id]);
+      user = res.user;
       userDep.changed();
     });
   },
 
   'click .user-manage-disagree-button': function (e) {
     var self = this;
+    var appId = Router.current().params.query.appId;
     var token = localStorage.getItem('user.loginToken');
-    var params = {token: token, termId: this._id};
+    var params = {token: token, termId: this._id, appId: appId};
     Meteor.call('user.removeTerm', params, function (err, res) {
       if(err) throw err;
-      user.terms = _.difference(user.terms, [self._id]);
+      user = res.user;
       userDep.changed();
     });
   },
