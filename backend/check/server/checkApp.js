@@ -30,11 +30,11 @@ CheckApp = function (req, res){
 
   var responseObject = {}
   if(diff.length == 0){
-    responseObject = {status: "OK"}
+    responseObject = {status: "OK", appName: app.name}
   } else {
     var terms = Terms.find({_id: {$in: diff}}).fetch();
     var termsList = _.pluck(terms, 'term');
-    responseObject = {status: "NOT_OK", countNotAgreedTerms: termsList};
+    responseObject = {status: "NOT_OK", countNotAgreedTerms: termsList, appName: app.name};
   }
   var response = callback + "(" + JSON.stringify(responseObject) + ")";
   sendResponse(res, 200, response);
