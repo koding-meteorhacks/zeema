@@ -1,6 +1,6 @@
 <template name="home">
  	{{#unless currentUser}}
-  		home
+  		{{>frontPage}}
   	{{else}}
   		{{> devDashboard}}
   	{{/unless}}
