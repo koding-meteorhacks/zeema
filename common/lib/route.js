@@ -87,11 +87,8 @@ Router.map(function() {
 
   this.route('user.manage', {
       layoutTemplate: 'layout.empty',
+      loadingTemplate: 'user.loading',
       path: '/user/manage',
-      onBeforeAction: function () {
-        this.render('user.loading');
-        this.next();
-      },
       waitOn: function () {
         var params = {appId: this.params.query.appId};
         return [
