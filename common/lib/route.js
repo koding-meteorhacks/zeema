@@ -35,8 +35,14 @@ Router.map(function() {
 
   // User Routes
   this.route('user', {
-      layoutTemplate: 'layout.empty',
+      layoutTemplate: 'layout.zeemauser',
+      loadingTemplate: 'user.loading',
       path: '/user',
+      waitOn: function () {
+        var token = localStorage.getItem('user.loginToken');
+        var params = {token: token};
+        return Meteor.subscribe('user.applications', params);
+      },
       onBeforeAction: function () {
         this.render('user.loading');
         this.next();
@@ -46,8 +52,7 @@ Router.map(function() {
         var token = localStorage.getItem('user.loginToken');
         var params = {token: token};
         Meteor.call('user.checkLoginToken', params, function (err, res) {
-          if(err) throw err;
-          if(res && res.isValid) {
+          if(!err && res) {
             self.render('user.dashboard');
           } else {
             Router.go('/user/login');
@@ -57,23 +62,56 @@ Router.map(function() {
   });
 
   this.route('user.login.emailToken', {
-      layoutTemplate: 'layout.empty',
-      path: '/user/login/:token?',
+      layoutTemplate: 'layout.zeemauser',
+      path: '/user/login',
       onBeforeAction: function () {
         this.render('user.loading');
         this.next();
       },
       action: function () {
         var self = this;
-        var params = {token: this.params.token};
-        if(!this.params.token) return this.render('user.login');
+        var appId = this.params.query.appId;
+        var params = {token: this.params.query.token};
+        if(!params.token) return this.render('user.login');
         Meteor.call('user.getLoginToken', params, function (err, res) {
-          if(err) throw err;
-          if(res && res.isValid) {
+          if(!err && res) {
             localStorage.setItem('user.loginToken', res.loginToken);
-            Router.go('/user');
+            if(!appId) return Router.go('/user');
+            var params = {token: res.loginToken};
+            Meteor.call('user.getUserInfo', params, function (err, res) {
+              var email = encodeURIComponent(res.user.email);
+              Router.go('/user/manage?appId='+appId+'&email='+email);
+            });
           } else {
+            if(err) console.error(err);
             Router.go('/user/login');
+          }
+        });
+      }
+  });
+
+
+  this.route('user.manage', {
+      layoutTemplate: 'layout.zeemauser',
+      loadingTemplate: 'user.loading',
+      path: '/user/manage',
+      waitOn: function () {
+        var token = localStorage.getItem('user.loginToken');
+        var params = {appId: this.params.query.appId, token: token};
+        return [
+          Meteor.subscribe('user.applicationInfo', params),
+          Meteor.subscribe('user.applicationTerms', params)
+        ];
+      },
+      action: function () {
+        var self = this;
+        var token = localStorage.getItem('user.loginToken');
+        var params = {token: token};
+        Meteor.call('user.checkLoginToken', params, function (err, res) {
+          if(!err && res) {
+            self.render('user.manage');
+          } else {
+            self.render('user.manage');
           }
         });
       }
