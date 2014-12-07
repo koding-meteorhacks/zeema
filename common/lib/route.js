@@ -46,8 +46,7 @@ Router.map(function() {
         var token = localStorage.getItem('user.loginToken');
         var params = {token: token};
         Meteor.call('user.checkLoginToken', params, function (err, res) {
-          if(err) throw err;
-          if(res && res.isValid) {
+          if(!err && res) {
             self.render('user.dashboard');
           } else {
             Router.go('/user/login');
@@ -68,11 +67,11 @@ Router.map(function() {
         var params = {token: this.params.token};
         if(!this.params.token) return this.render('user.login');
         Meteor.call('user.getLoginToken', params, function (err, res) {
-          if(err) throw err;
-          if(res && res.isValid) {
+          if(!err && res) {
             localStorage.setItem('user.loginToken', res.loginToken);
             Router.go('/user');
           } else {
+            if(err) console.error(err);
             Router.go('/user/login');
           }
         });

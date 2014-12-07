@@ -4,38 +4,32 @@ Meteor.methods({
   'user.checkLoginToken': function (params) {
     // params => {token}
     var token = ZeemaUsers.getLoginToken(params.token);
-    return {isValid: !!token};
+    if(!token) throw new Meteor.Error('Invalid login token');
+    return {};
   },
 
   'user.getLoginToken': function (params) {
     // params => {token}
     var token = ZeemaUsers.getEmailToken(params.token);
-    if(token) {
-      var loginToken = ZeemaUsers.createLoginToken(token.user);
-      return {isValid: true, loginToken: loginToken};
-    } else {
-      return {isValid: false};
-    }
+    if(!token) throw new Meteor.Error('Invalid email token');
+    var loginToken = ZeemaUsers.createLoginToken(token.user);
+    return {loginToken: loginToken};
   },
 
   'user.requestEmailToken': function (params) {
     // params => {email}
     var user = ZeemaUsers.findOne({email: params.email});
-    if(user) {
-      var emailToken = ZeemaUsers.createEmailToken(user._id);
-      sendEmailToken({email: user.email, emailToken: emailToken});
-    }
+    if(!user) throw new Meteor.Error('Cannot find user');
+    var emailToken = ZeemaUsers.createEmailToken(user._id);
+    sendEmailToken({email: user.email, emailToken: emailToken});
   },
 
   'user.getUserInfo': function (params) {
     // params => {token}
     var token = ZeemaUsers.getLoginToken(params.token);
-    if(token) {
-      var user = ZeemaUsers.findOne({_id: token.user});
-      return {isValid: true, user: user};
-    } else {
-      return {isValid: false};
-    }
+    if(!token) throw new Meteor.Error('Invalid login token');
+    var user = ZeemaUsers.findOne({_id: token.user});
+    return {user: user};
   },
 
 })
