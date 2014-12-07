@@ -8,10 +8,11 @@
 <br>
 <br>
 <div class="row">
-  <table class="table table-striped table-bordered">
+  <table class="table table-striped table-bordered ">
     <thead>
       <tr>
         <th>Applications</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -20,6 +21,8 @@
         <td>
           <a href="{{ pathFor 'newApplication' }}">{{name}}</a>
         </td>
+
+        <td class="col-sm-1"><button class="btn btn-danger" id="delete-app">Delete</button></td>
       </tr>
       {{/each}}
     </tbody>
