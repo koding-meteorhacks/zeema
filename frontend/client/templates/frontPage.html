@@ -1,12 +1,13 @@
 <template name="frontPage">
-  <div class="col-md-offset-3 col-lg-offset-3 col-xs-12 col-sm-12 col-md-6 col-lg-6" id="front-page-wrap">
+  <div class="col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-8 col-lg-8" id="front-page-wrap">
     <h1 class="text-center title">Zeema</h1>
-    <p class="text-center" id="slogan">Virtually nobody reads terms before going to agreeing them so, it's a lie and we need to fix it.</p>
     <h2 class="text-center">
       <span id="slogan-two">Zeema is the Gravatar for Terms</span>
     </h2>
+    <p class="text-center" id="slogan">
+      Virtually nobody reads terms before going to agreeing them<br/>, We need to fix this issue.</p>
     <div id="video">
-      <iframe width="100%" height="480" src="//www.youtube.com/embed/L2uFmvFpfEw?showinfo=0&controls=0" frameborder="0" allowfullscreen></iframe>
+      <a href="https://www.youtube.com/watch?v=YDD4lIjuwAk" target="_blank"><img src="https://cldup.com/BRqmcCYXGw.png" /></a>
     </div>
     <h2 class="text-center" id="how-zeema-works">How it works</h2>
 
@@ -26,10 +27,11 @@
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="whole-process">
         {{#markdown}} 
-* let's say we've an app called "catsbook.com" * developers of catsbook.com comes to zeema and selects terms they required 
-* we've also an user called "jhon" 
-* jhon also maintain a list of terms he agrees globally in zeema 
-* then once jhon logs into catsbook.com, zeema will tell it's safe or not safe to use the web site based on the terms he agrees. {{/markdown}}
+* let's say we have a app called "catsbook.com"
+* catsbook.com developers can add there terms in Zeema 
+* Lets assume there is also an user called "John"
+* John also maintain's a list of terms he agrees with in zeems.com
+* When the John logs into catsbook.com, zeema will notify you whether there are terms that you have not agreed to.  If you feel the terms of catsbook is agreeable you can go to zeema and agree with those terms as well.{{/markdown}}
         </div>
         <div role="tabpanel" class="tab-pane" id="developer">
           {{#markdown}} 
@@ -50,10 +52,10 @@ Then you can take actions right away. This is all you've to: <u>**visit zeema.co
 
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
-      <a href="#" class="big-button puple-button"><strong>Create terms for your app</strong><br/>(for developers)</a>
+      <a href="/sign-in" class="big-button puple-button"><strong>Create terms for your app</strong><br/>(for developers)</a>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
-      <a href="#" class="big-button green-button"><strong>Select terms you agree</strong><br/>(for end user)</a>
+      <a href="/user/login" class="big-button green-button"><strong>Select terms you agree</strong><br/>(for end user)</a>
     </div>
   </div>
 </template>
