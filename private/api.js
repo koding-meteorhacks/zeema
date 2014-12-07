@@ -12,7 +12,7 @@ Zeema.check = function(appId,email,url){
 
   var script = document.createElement("script");
   script.type = "text/javascript";
-  script.src = url+"/check?appId="+appId+"&email="+email+"&callback=_zeema_check";
+  script.src = url+"/check?appId="+appId+"&email="+email+"&callback=_zeema_check&ts=" + Date.now();
   document.body.appendChild(script);
 }
 Zeema._hide = function(){
