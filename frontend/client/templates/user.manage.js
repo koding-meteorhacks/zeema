@@ -35,9 +35,26 @@ Template['user.manage'].helpers({
     userDep.depend();
     if(user) {
       return user.applications[appId]
+      && _.contains(user.applications[appId].terms, this._id)
+      || _.contains(user.preferences, this._id);
+    }
+  },
+
+  isLocalAgreed: function () {
+    var appId = Router.current().params.query.appId;
+    userDep.depend();
+    if(user) {
+      return user.applications[appId]
       && _.contains(user.applications[appId].terms, this._id);
     }
-  }
+  },
+
+  isGlobal: function () {
+    userDep.depend();
+    if(user) {
+      return _.contains(user.preferences, this._id);
+    }
+  },
 });
 
 Template['user.manage'].events({
@@ -56,6 +73,30 @@ Template['user.manage'].events({
       user = res.user;
       userDep.changed();
     });
+  },
+
+  'click .user-manage-global-button': function (e) {
+    var self = this;
+    var token = localStorage.getItem('user.loginToken');
+    var params = {token: token, termId: this._id};
+    console.log(params)
+    if(_.contains(user.preferences, this._id)) {
+      console.log('- removing')
+      Meteor.call('user.removePreference', params, function (err, res) {
+        if(err) throw err;
+        user = res.user;
+        console.log(user)
+        userDep.changed();
+      });
+    } else {
+      console.log('- adding')
+      Meteor.call('user.addPreference', params, function (err, res) {
+        if(err) throw err;
+        user = res.user;
+        console.log(user)
+        userDep.changed();
+      });
+    }
   },
 
   'click .user-manage-disagree-button': function (e) {

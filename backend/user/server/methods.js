@@ -46,12 +46,31 @@ Meteor.methods({
     return {user: ZeemaUsers.findOne({_id: token.user})};
   },
 
+  'user.addPreference': function (params) {
+    // params => {token, termId, appId}
+    var token = ZeemaUsers.getLoginToken(params.token);
+    if(!token) throw new Meteor.Error('Invalid login token');
+    var options = {userId: token.user, termId: params.termId};
+    ZeemaUsers.addPreference(options);
+    console.log('add preference')
+    return {user: ZeemaUsers.findOne({_id: token.user})};
+  },
+
   'user.removeTerm': function (params) {
     // params => {token, termId, appId}
     var token = ZeemaUsers.getLoginToken(params.token);
     if(!token) throw new Meteor.Error('Invalid login token');
     var options = {userId: token.user, appId: params.appId, termId: params.termId};
     ZeemaUsers.removeTerm(options);
+    return {user: ZeemaUsers.findOne({_id: token.user})};
+  },
+
+  'user.removePreference': function (params) {
+    // params => {token, termId, appId}
+    var token = ZeemaUsers.getLoginToken(params.token);
+    if(!token) throw new Meteor.Error('Invalid login token');
+    var options = {userId: token.user, termId: params.termId};
+    ZeemaUsers.removePreference(options);
     return {user: ZeemaUsers.findOne({_id: token.user})};
   },
 

@@ -44,6 +44,11 @@ ZeemaUsers.addTerm = function (params) {
   }
 }
 
+ZeemaUsers.addPreference = function (params) {
+  // params => {userId, termId}
+  ZeemaUsers.update({_id: params.userId}, {$addToSet: {preferences: params.termId}});
+}
+
 ZeemaUsers.removeTerm = function (params) {
   // params => {userId, appId, termId}
   var user = ZeemaUsers.findOne({_id: params.userId});
@@ -53,4 +58,10 @@ ZeemaUsers.removeTerm = function (params) {
     set['applications.'+params.appId+'.terms'] = params.termId;
     ZeemaUsers.update({_id: params.userId}, {$pull: set});
   }
+}
+
+ZeemaUsers.removePreference = function (params) {
+  // params => {userId, termId}
+  var user = ZeemaUsers.findOne({_id: params.userId});
+  ZeemaUsers.update({_id: params.userId}, {$pull: {preferences: params.termId}});
 }
