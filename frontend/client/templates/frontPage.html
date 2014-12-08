@@ -1,60 +1,69 @@
 <template name="frontPage">
-  <div class="col-md-offset-3 col-lg-offset-3 col-xs-12 col-sm-12 col-md-6 col-lg-6">
-    <h1 class="text-center">Zeema</h1>
-    <p class="text-center">
-      Virtually nobody reads terms before going to agreeing them.<br/>
-      It's a lie and we need to fix it.</p>
+  <div class="col-md-offset-2 col-lg-offset-2 col-xs-12 col-sm-12 col-md-8 col-lg-8" id="front-page-wrap">
+    <h1 class="text-center title">Zeema</h1>
     <h2 class="text-center">
-      <u>Zeema is the Gravatar for Terms</u>
+      <span id="slogan-two">Zeema is the Gravatar for Terms</span>
     </h2>
-    <h2 class="text-center">How it works</h2>
+    <p class="text-center" id="slogan">
+      Virtually nobody reads terms before going to agreeing them<br/>, We need to fix this issue.</p>
+    <div id="video">
+      <a href="https://www.youtube.com/watch?v=YDD4lIjuwAk" target="_blank"><img src="https://cldup.com/BRqmcCYXGw.png" /></a>
+    </div>
+    <h2 class="text-center" id="how-zeema-works">How it works</h2>
 
     <div role="tabpanel">
 
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#whole-process" aria-controls="whole-process" role="tab" data-toggle="tab">Whole Process</a></li>
-        <li role="presentation"><a href="#developer" aria-controls="developer" role="tab" data-toggle="tab">I'm a Developer</a></li>
-        <li role="presentation"><a href="#end-user" aria-controls="end-user" role="tab" data-toggle="tab">I'm an End User</a></li>
+        <li role="presentation" class="active"><a href="#whole-process" aria-controls="whole-process" role="tab" data-toggle="tab">Whole Process</a>
+        </li>
+        <li role="presentation"><a href="#developer" aria-controls="developer" role="tab" data-toggle="tab">I'm a Developer</a>
+        </li>
+        <li role="presentation"><a href="#end-user" aria-controls="end-user" role="tab" data-toggle="tab">I'm an End User</a>
+        </li>
       </ul>
 
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="whole-process">
-          {{#markdown}}
-  * let's say we've an app called "catsbook.com"
-  * developers of catsbook.com comes to zeema and selects terms they required
-  * we've also an user called "jhon"
-  * jhon also maintain a list of terms he agrees globally in zeema
-  * then once jhon logs into catsbook.com, zeema will tell it's safe or not safe to use the web site based on the terms he agrees.
-          {{/markdown}}
-        </div>  
+        {{#markdown}} 
+* Let's say we have a app called "catsbook.com"
+* catsbook.com developers can add there terms in **Zeema**
+* Lets assume there is also an user called "John"
+* John also maintains a list of terms he agrees with in **Zeema**
+* When the John logs into catsbook.com, **Zeema** will notify him whether there are terms that he has not agreed to.  If you feel the terms of catsbook is agreeable you can go to **Zeema** and agree with those terms as well.
+* When you visit another site like catsbook.com again, you already accepted similar terms and you can proceed without any issues. **Zeema** will notify that as well.{{/markdown}}
+        </div>
         <div role="tabpanel" class="tab-pane" id="developer">
-          {{#markdown}}
+          {{#markdown}} 
 With zeema, you don't need to worry about asking users to agree with terms. You just specify terms you need, we'll take care of the rest. 
 
-This is all you've to do:
+This is all you have to do:
 
-* visit zeema.com and select terms you need
-* we've a list of commonly used terms (try to pick from them)
-* if needed, you can add custom terms as well
-* Then you will get a javascript code to paste on the bottom of the app's HTML code
-          {{/markdown}}
+* Visit **Zeema** and select terms you need
+* We have list of common terms (try to pick from them)
+* If needed, you can add custom terms as well
+
+Then you will get a javascript code to paste on the bottom of your app's HTML code{{/markdown}}
         </div>
         <div role="tabpanel" class="tab-pane" id="end-user">
-          {{#markdown}}
-With zeema, you don't need to read lengthy pages of terms to agree them. You can simply select a set of terms you agree at first. 
+          {{#markdown}} 
+With zeema, you don't need to read lengthy pages of terms to agree with. You can simply select a set of terms you agree at first. Then whenever you visit one of the zeema powered web app, you'll get notified(inside the app) if there are terms you don't agree. Then you can take actions right away.
 
-Then whenever you visit one of the zeema powered web app, you'll get notified(inside the app) if there are terms you don't agree. Then you can take actions right away.
+This is all you've to:
 
-This is all you've to: <u>**visit zeema.com and select terms you agree**</u>
+* visit **Zeema** and select terms you agree
 
-That's all.
-          {{/markdown}}
+That's all.{{/markdown}}
         </div>
       </div>
 
     </div>
-    
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+      <a href="/sign-in" class="big-button puple-button"><b>Create terms for your app</b><br/>(for developers)</a>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+      <a href="/user/login" class="big-button green-button"><b>Select terms you agree</b><br/>(for end user)</a>
+    </div>
   </div>
 </template>

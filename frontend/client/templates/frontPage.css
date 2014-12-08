@@ -1,0 +1,86 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900);
+
+body
+{
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+img {
+  width: 100%;
+  border: 0;
+}
+
+.title
+{
+  color: #000;
+  font-size: 7em;
+}
+
+#video
+{
+  text-align: center;
+  margin-top: 2em;
+  margin-bottom:  1em;
+}
+
+#slogan
+{
+  font-size: 16px;
+  font-family: Arial;
+}
+#slogan-two
+{
+  font-size: 24px;
+  border-bottom: 1px solid #AAA;
+}
+.tab-content .tab-pane
+{
+  padding-top: 20px;
+  font-family: Arial;
+  padding-bottom: 20px;
+}
+.big-button,
+.big-button:hover {
+  display: block;
+  margin: 0 auto;
+  max-width: 300px;
+  padding: 10px 15px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 18px;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  text-decoration: none;
+}
+.big-button{
+  color: white;
+}
+
+.big-button:hover {
+  opacity: 0.9
+}
+
+.green-button{
+  background-color: #5051B6;
+}
+.puple-button{
+  background-color: #7F3081;
+}
+#front-page-wrap{
+  margin-bottom: 60px;
+}
+
+.tab-content,
+.tab-content li,
+.tab-content p {
+  font-size: 16px;
+  line-height: 27px;
+}
+
+.big-button,
+.big-button:hover {
+  font-size: 18px;
+  font-family: "Source Sans Pro"
+}
