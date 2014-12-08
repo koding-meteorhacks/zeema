@@ -23,7 +23,7 @@ Visit: [Zeema](http://mnmtanish.koding.io/)
 
 or watch following video
 
-[![Zeema Demo](https://cldup.com/BRqmcCYXGw.png)]()
+[![Zeema Demo](https://cldup.com/BRqmcCYXGw.png)](https://www.youtube.com/watch?v=7O_CBakws8Q)
 
 ## APIs used
 
