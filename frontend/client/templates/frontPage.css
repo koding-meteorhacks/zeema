@@ -72,3 +72,15 @@ img {
   margin-bottom: 60px;
 }
 
+.tab-content,
+.tab-content li,
+.tab-content p {
+  font-size: 16px;
+  line-height: 27px;
+}
+
+.big-button,
+.big-button:hover {
+  font-size: 18px;
+  font-family: "Source Sans Pro"
+}
